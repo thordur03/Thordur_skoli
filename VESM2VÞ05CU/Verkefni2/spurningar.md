@@ -44,13 +44,7 @@ void loop() {
 Serial.println(data);//data that is being Sent
 delay(200);
 }
-<object width="425" height="350">
-  <param name="movie" value="https://www.youtube.com/watch?v=NWM92zt1xms" />
-  <param name="wmode" value="transparent" />
-  <embed src="https://www.youtube.com/watch?v=NWM92zt1xms"
-         type="application/x-shockwave-flash"
-         wmode="transparent" width="425" height="350" />
-</object>
+https://www.youtube.com/watch?v=NWM92zt1xms
 
 # 3.3
 
@@ -97,10 +91,5 @@ void recvInfo() {
     
   }
 
-<object width="425" height="350">
-  <param name="movie" value="https://www.youtube.com/watch?v=lV6VNczPEUs" />
-  <param name="wmode" value="transparent" />
-  <embed src="https://www.youtube.com/watch?v=lV6VNczPEUs"
-         type="application/x-shockwave-flash"
-         wmode="transparent" width="425" height="350" />
+https://www.youtube.com/watch?v=lV6VNczPEUs
 
