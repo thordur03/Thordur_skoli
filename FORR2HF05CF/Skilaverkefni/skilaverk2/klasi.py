@@ -10,8 +10,5 @@ class Verkalydsfelag:
     
     def utborgud_laun(self):
         return int(laun-skatt())
-    def prenta_upplysingar_um_medlim(self)
-        print("Nafn: ",self.nafn)
-        print("Félagsnúmer: ",self.felagsnumer)
-        print("Laun: ",self.laun)
-        print("Kennitala: ",self.kennitala)
+    def prenta_upplysingar_um_medlim(self):
+        print(self.felagsnumer+"\t"+self.nafn+"\t\t"+self.laun+"\t\t"+self.kennitala)
