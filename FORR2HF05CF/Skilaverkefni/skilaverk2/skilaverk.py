@@ -1,8 +1,118 @@
 import csv
+import time
+import sys
 from klasi import Verkalydsfelag
+    
+def opnaSkra():
+    with open("verkalydsfelag.csv","r",newline="",encoding="utf-8") as f:
+        reader = csv.reader(f,delimiter=",")
+        listi = []
+        starfsmannalisti = []
+        for x in reader:
+            listi.append(x)
+        for x in listi:
+            starfsmannalisti.append(Verkalydsfelag(x[0],x[1],x[2],x[3]))
+    return starfsmannalisti
+def skifSkra(starfsmannalisti):
+    with open("verkalydsfelag.csv","w",newline="",encoding="utf-8") as f:
+        skrifari = csv.writer(f,delimiter=",")
+        for x in starfsmannalisti:
+            skrifari.writerow([x.nafn,x.felagsnumer,x.laun,x.kennitala])
+            
+def nyrMedlimur(nafn,felagsnumer,laun,kennitala):
+    starfsmannalisti.append(Verkalydsfelag(nafn,felagsnumer,laun,kennitala))
+
+def eydaMedlimi(felagsnumereyda):
+    for x in starfsmannalisti:
+        if x.felagsnumer == felagsnumereyda:
+            print(x.nafn," hefurverið eitt")
+            starfsmannalisti.remove(x)
+            
+
+def breytaMedlim(felagsnumerbr,nafn,felagsnumer,laun,kennitala):
+    for x in starfsmannalisti:
+        if x.felagsnumer == felagsnumerbr:
+            x.nafn = nafn
+            x.felagsnumer = felagsnumer
+            x.laun = laun
+            x.kennitala = kennitala
+def prentaVerkalydsfelag():
+    for x in starfsmannalisti:
+        x.prenta_upplysingar_um_medlim()
+def nafnoglaun():
+    for x in starfsmannalisti:
+        print("Nafn: ",x.nafn," Laun: ",x.laun)    
+def heildarskattar():
+    skattur = 0
+    for x in starfsmannalisti:
+        skattur = skattur + int(x.skatt())
+    return str(skattur)+" kr"
+def arseydsla():
+    heildarlaun = 0
+    for x in starfsmannalisti:
+        heildarlaun = heildarlaun + (int(x.laun))*12
+    return heildarlaun
+   
+
+
+on = True
+while on == True:
+    print("(1) Opna Skrá")
+    print("(2) Skrifa Skrá")
+    print("(3) Nýr Meðlimur")
+    print("(4) Eyða Meðlimi")
+    print("(5) Breyta meðlimi")
+    print("(6) Prenta Verkalydsfélag")
+    print("(7) Nafn og Laun")
+    print("(8) heildarskattur")
+    print("(9) Heildarlaun")
+    print("(0) Loka")
+    val=int(input("hvað viltu gera? "))
+    if val==1:
+        try:
+            starfsmannalisti = opnaSkra()
+            print("Skrá hefur verið opnuð")
+        except:
+            print("einhvað fór rangt skrá opnaðist ekki")
+    elif val==2:
+        try:
+            skifSkra(starfsmannalisti)
+        except:
+            print("einhvað fór rangt skráinn hefur ekki vistast")
+            print(sys.exc_info()[0])
+    elif val==3:
+        nafn = input("sláðu inn nafn: ")
+        felagsnumer = input("sláðu inn felagsnúmer: ")
+        laun = input("sláðu inn laun: ")
+        kennitala = input("sláðu inn kennitölu: ")
+        nyrMedlimur(nafn,felagsnumer,laun,kennitala)
+        print(nafn," hefur verið bætt við")
+    elif val==4:
+        eyda = input("Sláðu inn félagsnúmer á starfsmanni sem á að eyða: ")
+        eydaMedlimi(eyda)
+    elif val==5:
+        felagsnumerbr = input("Sláðu inn félagsnúmer á starfsmanni sem á að breyta: ")
+        nafn = input("sláðu inn nafn: ")
+        felagsnumer = input("sláðu inn felagsnúmer: ")
+        laun = input("sláðu inn laun: ")
+        kennitala = input("sláðu inn kennitölu: ")
+        breytaMedlim(felagsnumerbr,nafn,felagsnumer,laun,kennitala)
+    elif val==6:
+        prentaVerkalydsfelag()
+    elif val==7:
+        nafnoglaun()
+    elif val==8:
+        print("Heildarskattur allra starfsmanna er: ",heildarskattar())
+    elif val==9:
+        print("fyrirtækið notar",arseydsla(),"í laun á ári")
+    elif val==0:
+        lokaval = input("ertu viss um að þú viljir hætta ja eða nei: ")
+        lokaval = lokaval.lower()
+        if lokaval == "ja":
+            on=False
+    
 
 
 
 
-ob = Verkalydsfelag("nafn","653","874754","2810032910")
-ob.prenta_upplysingar_um_medlim()
+
