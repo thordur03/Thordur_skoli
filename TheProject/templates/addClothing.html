@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block titill %} Add Clothing {% endblock %}
+
+{% block content %}
+
+    <h1>Add New Clothing</h1>
+    <div class="center-form">
+        <div>
+            <form action="" method="POST" enctype="multipart/form-data" class="ui form">
+                {{form.hidden_tag()}}
+                <div class="field">
+                    <label>Type</label> 
+                    {{form.type(class_="ui search dropdown")}}
+                </div>
+                <div class="field">
+                    <label>Description</label> 
+                    {{form.description()}}
+                </div>
+
+                <div class="field">
+                    <label>Image</label>
+                 {{form.picture}}
+                </div>
+
+                <input class="ui button" type="submit" value="Submit">
+                <a class="ui negative button " href="url_for('dashboard')">Cancel</a>
+            </form>
+        </div>
+        
+    </div>
+{% endblock content %}

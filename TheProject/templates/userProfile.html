@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block titill %} {{user.username }} - Profile {% endblock %}
+
+{% block content %}
+
+    <h1>Profile</h1>
+    <div class="left-form ui list">
+        <div class="item">
+          <div class="header">Name</div>
+          {{user.name }}
+        </div>
+        <div class="item">
+          <div class="header">Username</div>
+          {{user.username }} 
+        </div>
+        <div class="item">
+          <div class="header">Bio</div>
+          {{user.bio }}
+        </div>
+
+      </div>
+    <div class="right-form">
+
+        {% if user.profile_picture == "n/a" %}
+            <img src="{{ url_for('static', filename='img/default_profile_pic.jpg') }}" alt="deafult profile picture" width="200">
+        {% else %}
+            <img src="{{ url_for('static', filename='profile_data/'+user.id|string() + '_' + user.username+'/'+ user.profile_picture) }}" alt="deafult profile picture" width="200"> 
+        {% endif %}
+        
+    </div>
+
+<br><br><br>
+    <div>
+        <h1>Clothing</h1>
+        <div class="ui three column grid">
+            {% for item in clothing%}
+                <div class="ui five wide column">
+                    <div class="ui card">
+                        <div class="image">
+                            <img src="{{url_for('static',filename='clothes_images/'+ item.image_link)}}" alt="" >
+                        </div>
+                        <div class="content">
+                        <a class="header">{{item.type}}</a>
+
+                        <div class="description">
+                            {{item.describtion}}
+                        </div>
+                        
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

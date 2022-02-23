@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='semantic_ui/semantic.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css') }}">
+
+    <title>{% block titill %}{% endblock titill %}</title>
+</head>
+<header class="ui">
+    <div class="ui sticky inverted menu">
+        <button1 class="item">
+            <i class="align justify icon"></i>
+        </button1>
+        <div class="ui sidebar inverted vertical menu">
+            <h2 style="color:white">Menu</h2>
+            <a class="item">
+                Search
+            </a>
+            <a class="item">
+                Discover
+            </a>
+            <a class="item" href="{{ url_for('whatToWear') }}">
+                What should I wear
+            </a>
+        </div>
+        <a class="item" href="{{ url_for('index') }}">Home</a>
+        <div class="right menu">
+            <div class="item">
+                <form class="ui icon input" id="search" >
+                        <input type="text" placeholder="Search..." id='searchText'>
+                        <i class="search icon" type='submit' value='Search' ></i>
+                </form>
+            </div>
+                {% if current_user.is_authenticated == False%}
+                <a class="item" href="{{ url_for('create_user') }}">Sign Up</a>
+                <a class="item" href="{{ url_for('login') }}">Log In</a>
+                {% endif %}
+                
+                {% if current_user.is_authenticated%}
+                    <a class="item avatar image" href="{{ url_for('dashboard') }}">{{current_user.username}} &nbsp;        
+                    {% if current_user.profile_picture == "n/a" %}
+                        <img class="ui avatar image" src="{{ url_for('static', filename='img/default_profile_pic.jpg') }}"  width="200">
+                    {% else %}
+                        <img class="ui avatar image" src="{{ url_for('static', filename='profile_data/'+current_user.id|string() + '_' + current_user.username+'/'+ current_user.profile_picture) }}"  width="200"> 
+                    {% endif %}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>    
+
+</header>
+<body class="ui active tab">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+     {% if messages %}
+      {% for category, message in messages %}
+          <div class="ui {{ category }} message">
+              <span>{{ message }}</span>
+              </button>
+          </div>
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
+  
+    {% block content %}
+    {% endblock content %}
+    <footer class="ui">
+        <div class="ui column center aligned page grid">
+            <a href="/postMenu" class="ui small image">
+                <img src="static/img/plus-icon.svg">
+              </a>
+    </footer>
+
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous">
+    </script>
+    <script src="semantic/dist/semantic.min.js"></script>
+    <script src="{{url_for('static', filename='semantic_ui/semantic.min.js')}}"></script>
+    <script>
+        $('button1').click(function () {
+            $('.ui.sidebar').sidebar('toggle');
+        })
+        $('.ui.sticky') .sticky();
+    </script>
+    <script>
+        search = document.getElementById("search").addEventListener("submit",(e)=>{
+            searchData = e.target.children[0].value
+            console.log(location)
+
+            location.replace(location.origin);
+            setTimeout(function(){location.replace(location.origin);},500);
+            
+            return false;
+        });
+    </script>
+    
+</body>
+</html>
+

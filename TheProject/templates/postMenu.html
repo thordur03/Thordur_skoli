@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block titill %} {{current_user.username }} - Settings {% endblock %}
+
+{% block content %}
+
+    
+    <div class="center-form">
+        <div class="ui placeholder segment">
+            <div class="ui two column very relaxed stackable grid">
+              <div class="column">
+                <a href="/addPost" class="ui big button">Add Post</a>
+              </div>
+              <div class="middle aligned column">
+                <a href="/addClothing" class="ui big button">Add Clothing</a>
+              </div>
+            </div>
+            <div class="ui vertical divider">
+              Or
+            </div>
+          </div>
+    </div>
+{% endblock content %}

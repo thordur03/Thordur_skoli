@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block titill %} {{current_user.username }} - Settings {% endblock %}
+
+{% block content %}
+
+    <h1>Edit Profile</h1>
+    <div class="center-form">
+        <div>
+            <form action="" method="POST" enctype="multipart/form-data" class="ui form">
+                {{form.hidden_tag()}}
+                <div class="field">
+                    <label>Name</label> 
+                    {{form.name(value=current_user.name)}}
+                </div>
+                <div class="field">
+                    <label>Username</label> 
+                    {{form.username(value=current_user.username)}}
+                </div>
+                <div class="field">
+                    <label>Email</label>
+                 {{form.email(value=current_user.email)}}
+                </div>
+                <div class="field">
+                    <label>Bio</label>
+                 {{form.bio(value=current_user.bio)}}
+                </div>
+                <div class="field">
+                    <label>Profile Picture</label>
+                 {{form.profile_picture}}
+                </div>
+
+                <input class="ui button" type="submit" value="Submit">
+                <a class="ui negative button " href="url_for('dashboard')">Cancel</a>
+            </form>
+            
+            <a class="ui negative button " href="/delete_current_user">Delete User</a>
+
+        </div>
+        
+    </div>
+{% endblock content %}

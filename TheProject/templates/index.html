@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block titill %} Home {% endblock %}
+
+{% block content %}
+    
+<div class="ui grid">
+    <div class="one collumn row">
+    {% for post in posts%}
+
+        <div class="post-container">
+        <div class="ui card">
+            <div class="content">
+            <a href="/userProfile/{{post.user.id}}">
+              <div class="right floated meta">Today</div>
+              {%if post.user.profile_picture == "n/a" %}
+              <img class="ui avatar image" src="{{ url_for('static', filename='img/default_profile_pic.jpg') }}"> {{post.user.username}}
+              {% else %}
+              <img class="ui avatar image" src="{{ url_for('static', filename='profile_data/'+post.user.id|string() + '_' + post.user.username+'/'+ post.user.profile_picture) }}"> {{post.user.username}}
+              {% endif %} 
+            </a> 
+            </div>
+            <div class="image">
+                <img class="ui medium centered image" id='{{post.id}}' >             
+                <span class="left floated">
+                    <i id="{{post.id|string + '_leftIcon'}}" class="angle large left link icon"></i>
+                </span>
+                <span class="right floated">
+                    <i id="{{post.id|string + '_rightIcon'}}" class="angle large right link icon"></i>
+                </span>
+                <span id="{{post.id|string + '_step'}}" class="hidden" value="0">0</span>
+            </div>
+ 
+            <div class="content">
+
+              <span class="right floated">
+                <i class="heart outline like icon"></i>
+                {{post.likes}} likes
+              </span>
+          </div>
+        {% set image_list = [] %}
+        
+        {% for item in clothing%}
+            
+            {%if item.id == post.hat %}
+                {{image_list.append(item.image_link)  or "" }}
+            {% endif %}
+
+            {%if item.id == post.shirt %}
+                {{image_list.append(item.image_link) or ""}}
+            {% endif %}
+
+            {%if item.id == post.jacket %}
+                {{image_list.append(item.image_link) or ""}}
+            {% endif %}
+
+            {%if item.id == post.gloves %}
+                {{image_list.append(item.image_link) or ""}}
+            {% endif %}
+
+            {%if item.id == post.pants %}
+                {{image_list.append(item.image_link) or ""}}
+            {% endif %}
+
+            {%if item.id == post.shorts %}
+                {{image_list.append(item.image_link)or ""}}
+            {% endif %}
+
+            {%if item.id == post.shoes %}
+            {{image_list.append(item.image_link) or ""}}
+            {% endif %}
+
+            {%if item.id == post.socks %}
+                {{image_list.append(item.image_link ) or ""}}
+            {% endif %}
+            
+        {% endfor %}
+        {% set x=postsDict.__setitem__(post.id, image_list) %}
+          
+          <script>
+            var imgList = {{image_list| tojson}};
+            
+            var id = {{post.id| tojson}};
+
+            var imgElement = document.getElementById(id);
+            imgElement.src = "static/clothes_images/"+imgList[0];
+
+            backArrow = document.getElementById(id.toString()+"_leftIcon");
+            forwardArrow = document.getElementById(id.toString()+"_rightIcon");
+            
+            if(imgList.length == 1){
+                backArrow.className = "hidden";
+                forwardArrow.className = "hidden";
+            }
+
+
+            backArrow.className = "hidden";
+
+          </script>
+
+    </div>
+    </div>
+    {% endfor %}
+    <script>
+        var postsDict = {{postsDict | tojson}};
+        console.log(postsDict);
+        function stepper(event,forwardBackward){
+            var id = parseInt(event.target.id.replace('_rightIcon',''));
+            console.log(id);
+            step = parseInt(document.getElementById(id.toString()+"_step").textContent)
+            if(forwardBackward)step++;
+            else step--;
+            document.getElementById(id.toString()+"_step").textContent = step.toString();
+
+            imgElement = document.getElementById(id);
+            imgElement.src = "static/clothes_images/"+postsDict[id][step];
+            backArrow = document.getElementById(id.toString()+"_leftIcon");
+            forwardArrow = document.getElementById(id.toString()+"_rightIcon");
+
+            if(step<=1){
+                backArrow.className = arrowoff;
+            }
+            if(step>0){
+                backArrow.className = leftArrowOn;
+            }
+            if(step==postsDict[id].length-1){
+                forwardArrow.className = arrowoff;
+            }
+            if(step<postsDict[id].length-1 && postsDict[id].length >1){
+                forwardArrow.className = rightArrowOn;
+                
+            }
+        }
+        Object.entries(postsDict).forEach(post => {
+            id = post[0];
+            leftArrowOn = "angle large left link icon"
+            rightArrowOn = "angle large right link icon"
+            arrowoff = "hidden"
+               
+            
+            backArrow = document.getElementById(id.toString()+"_leftIcon").addEventListener("click", function(event) {
+                stepper(event,false);   
+            });
+            forwardArrow = document.getElementById(id.toString()+"_rightIcon").addEventListener("click", function(event) {
+                stepper(event,true); 
+            });
+
+          });
+        
+    </script>
+    
+</div>
+</div>
+{% endblock content %}
+
+

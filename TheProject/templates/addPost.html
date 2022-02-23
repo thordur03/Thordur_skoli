@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block titill %} Add post {% endblock %}
+
+{% block content %}
+
+    <h1>Add New Post</h1>
+    <div>
+        <div>
+            {% for item in types%}
+            <a href="/selectCloting/{{item}}" class="ui small image">
+                <h2>{{item}}</h2>
+                {% if post[item] == None or post[item] == 0%}
+                    <img src="{{ url_for('static', filename='img/'+item+'.jpg') }}">
+                {% else %}
+                    <img src="{{ url_for('static', filename='clothes_images/'+post[item].image_link) }}" width="200">
+                {% endif %}
+              </a>
+            {% endfor %}
+        </div>
+        <a class="ui posative button" href="/publishPost">Post</a>
+        <a class="ui negative button" href="/">Cancel</a>
+        <div>
+            {% block clothing %}
+            {% endblock clothing%}
+        </div>
+    </div>
+
+{% endblock content %}

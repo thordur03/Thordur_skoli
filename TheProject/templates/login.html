@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block titill %} Login {% endblock %}
+
+{% block content %}
+
+    <div class="center-form">
+        <form action="" method="POST" class="ui form">
+            {{form.hidden_tag()}}
+            <div class="field">
+                <label>Username</label> 
+                {{form.username}}
+            </div>
+            <div class="field">
+                <label>Password</label>
+                {{form.password}}
+            </div>
+
+            <input class="ui button" type="submit" value="Log In">
+
+            <a href="{{ url_for('create_user') }}">dont have an account?</a>
+        </form>
+
+
+    </div>
+
+{% endblock content %}

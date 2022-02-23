@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block titill %} {{current_user.username }} - Profile {% endblock %}
+
+{% block content %}
+
+    <h1>Profile</h1>
+    <div class="left-form ui list">
+        <div class="item">
+          <div class="header">Name</div>
+          {{current_user.name }}
+        </div>
+        <div class="item">
+          <div class="header">Username</div>
+          {{current_user.username }} 
+        </div>
+        <div class="item">
+          <div class="header">Bio</div>
+          {{current_user.bio }}
+        </div>
+
+      </div>
+    <div class="right-form">
+
+        <a class="ui primary button" href="{{ url_for('edit_user')}}">user settings</a>
+        <a class="ui button" href="{{ url_for('logout')}}">Log Out</a>
+        {% if current_user.profile_picture == "n/a" %}
+            <img src="{{ url_for('static', filename='img/default_profile_pic.jpg') }}" alt="deafult profile picture" width="200">
+        {% else %}
+            <img src="{{ url_for('static', filename='profile_data/'+current_user.id|string() + '_' + current_user.username+'/'+ current_user.profile_picture) }}" alt="deafult profile picture" width="200"> 
+        {% endif %}
+        
+    </div>
+<br><br><br>
+    <div>
+        <h1>My Clothing</h1>
+        <div class="ui three column grid">
+            {% for item in clothing%}
+                <div class="ui five wide column">
+                    <div class="ui card">
+                        <div class="image">
+                            <img src="{{url_for('static',filename='clothes_images/'+ item.image_link)}}" alt="" >
+                        </div>
+                        <div class="content">
+                        <a class="header">{{item.type}}</a>
+
+                        <div class="description">
+                            {{item.describtion}}
+                        </div>
+                        <a class="ui mini right floated red button" href="/deleteClothing/{{item.id}}">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

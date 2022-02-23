@@ -1,0 +1,24 @@
+{% extends "addPost.html" %}
+
+{% block clothing %}
+    <h1>{{clothingtype}}</h1>
+    {%for item in clothes%}
+        <a href="/addClotingToPost/{{item.id}}" class="ui small image">
+            <div class="ui card">
+                <div class="image">
+                    <img src="{{url_for('static',filename='clothes_images/'+ item.image_link)}}" alt="" >
+                </div>
+                <div class="content">
+                <a class="header">{{item.type}}</a>
+    
+                <div class="description">
+                    {{item.describtion}}
+                </div>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+    <a class="ui primary button" href="{{ url_for('addPost')}}">Back</a>
+
+    <a class="ui negative button" href="/removeClotingToPost/{{ clothingtype }}">Remove</a>
+{% endblock clothing%}

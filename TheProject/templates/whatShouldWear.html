@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block titill %} What Should I Wear {% endblock %}
+
+{% block content %}
+    
+    <div class="ui three column grid">
+        {% for i in styles %}
+            <div class="column">
+                <div class="ui segment">
+                    <h1 class="ui center aligned header">{{ i['name'] }}</h1>
+                    <a href="/outfitStyle/{{ i['name'] }}"><img src="{{ i['img'] }}" alt="" class="ui fluid rounded image"></a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <style>
+        img:hover{
+            opacity: 0.5;
+        }
+    </style>
+{% endblock content %}

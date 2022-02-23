@@ -1,0 +1,67 @@
+body {
+  margin: 0px;
+}
+
+footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center
+}
+.post-container{
+  margin: 6em;
+}
+.ui.fixed.sticky + body {
+  margin-top: 39px;
+}
+.flash_message{
+  background-color:rgb(192, 189, 16);
+  margin: 5px 300px 5px 300px;
+  padding: 10px;
+  border: 5px solid rgb(192, 189, 16);
+  border-radius: 3px;
+
+  text-align: center;
+}
+.navbar ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+  }
+
+.navbar li {
+    float: left;
+  }
+
+  
+.navbar a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  /* Change the link color to #111 (black) on hover */
+.navbar a:hover {
+    background-color: #111;
+
+}
+
+.center-form {
+  display: flex;
+  height: 500px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.post {
+  display: flex;
+}
+.hidden {
+  display: none;
+}
